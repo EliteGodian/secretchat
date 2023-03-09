@@ -6,7 +6,7 @@ body {
   flex-direction: column;
   max-height: 100vh;
   font-family: -apple-system, BlinkMacSystemFont, sans-serif;
-  background: #23272a;
+  background: #919191;
 }
 
 .members-count,
@@ -14,7 +14,7 @@ body {
 .messages {
   border: 1px solid #2c2f33;
   border-radius: 10px;
-  background: #2c2f33;
+  background: #919191;
   padding: 15px;
   margin-bottom: 15px;
 }
@@ -48,7 +48,7 @@ body {
   padding: 10px 15px;
   font-size: 16px;
   border-radius: 10px;
-  background: #2c2f33;
+  background: #919191;
 }
 .message-form__button {
   margin: 10px;
