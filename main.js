@@ -68,6 +68,9 @@ drone.on('error', error => {
 });
 
 function getRandomName() {
+  var namef = window.prompt("username:")
+  if (namef == "null") {
+    
   const adjs = [ "-Autumn", "-Hidden", "-Bitter", "-Misty", "-Silent", "-Empty", "-Dry", "-Dark", "-Summer", "-Icy", "-Stupid", "-Quiet", "-White", "-Cool", "-Spring", "-Winter", "-Patient", "-Blood", "-Dawn", "-Crimson", "-Wispy", "-Weathered", "-Blue", "-Billowing", "-Broken", "-Cold", "-Damp", "-Falling", "-Frosty", "-Green", "-Meme", "-Late", "-Lingering", "-Bold", "-Little", "-Morning", "-Muddy", "-Old", "-Red", "-Rough", "-Still", "-Small", "-Sparkling", "-Throbbing", "-Shy", "-Wandering", "-Withered", "-Wild", "-Black", "-Young", "-Waterfall", "-Solitary", "-Fragrant", "-Aged", "-Snowy", "-Piano", "-Sun", "-Void", "-Divine", "-Polished", "-Ancient", "-Purple", "-Lively", "-Nameless"];
   const nouns = ["Master-", "Master-", "Master-", "Master-", "Master-", "Master-", "Master-", "Master-", "Master-", "Master-", "Master-", "Master-", "Master-", "Master-", "Master-", "Master-", "Master-", "Master-", "Master-", "Master-", "Master-", "Master-", "Master-", "Master-", "Master-", "Master-", "Master-", "Master-", "Master-", "Master-", "Master-", "Master-", "Master-", "Master-", "Master-", "Master-", "Master-", "Master-", "Master-", "Master-", "Master-", "Master-", "Master-", "Master-", "Master-", "Master-", "Master-", "Master-", "Master-", "Master-", "Master-", "Master-", "Master-", "Master-", "Master-", "Master-", "Master-", "Master-", "Master-", "Master-", "Master-", "Master-", "Master-", "Master-"];
   return (
@@ -75,6 +78,9 @@ function getRandomName() {
     "_" +
     nouns[Math.floor(Math.random() * nouns.length)]
   );
+  } else {
+    return(namef)
+  }
 }
 
 function getRandomColor() {
