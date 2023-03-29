@@ -1,22 +1,48 @@
 body {
-  box-sizing: border-box;
-  margin: 50px;
-  padding: 13px;
-  display: flex;
-  flex-direction: column;
-  max-height: 100vh;
+  
   font-family: -apple-system, BlinkMacSystemFont, sans-serif;
-  background: #919191;
+  background: black;
+  padding-bottom: 50px;
+  background-repeat:no-repeat;
+  background-size:100% 100px;
+  min-height: 80px;
+}
+#timmybutton {
+  align-self: center;
+}
+.scorestream-widget-container{
+  min-height: 100px;
 }
 
 .members-count,
 .members-list,
 .messages {
-  border: 1px solid #2c2f33;
+  color: white;
+  border: 5px solid white;
   border-radius: 10px;
-  background: #919191;
+  background: rgba(0, 0, 0, 0.6);
   padding: 15px;
   margin-bottom: 15px;
+}
+button {
+  border: none;
+  cursor: pointer;
+  appearance: none;
+  background-color: inherit;
+}
+
+
+
+button:hover {
+  transform: rotate(360deg);
+}
+
+img {
+  width: 55px;
+  height: 55px;
+  border-radius: 50%;
+  border: 2px solid white;
+  
 }
 
 .messages {
@@ -43,14 +69,70 @@ body {
   border-radius: 10px;
 }
 .message-form__input {
+  
   flex-grow: 1;
-  border: 1px solid #23272a;
   padding: 10px 15px;
   font-size: 16px;
-  border-radius: 10px;
   background: #919191;
+  color: white;
+  border: 5px solid white;
+  border-radius: 10px;
+  background: rgba(0, 0, 0, 0.6);
 }
 .message-form__button {
-  margin: 10px;
   border-radius: 10px;
+}
+button {
+    
+  display:inline-block;
+  transition: transform 0.7s ease-in-out;
+}
+#somethingverynice {
+  height: 25px;
+}
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content/Box */
+.modal-content {
+  background-color: #fefefe;
+  margin: 15% auto; /* 15% from the top and centered */
+  padding: 20px;
+  border: 1px solid #888;
+  width: 60%; /* Could be more or less, depending on screen size */
+}
+
+/* The Close Button */
+.close {
+  color: #aaaaaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+/* Slider Styling */
+.slider {
+  width: 50%;
+}
+
+/* Dark Mode Styling */
+body.dark-mode {
+  background-color: #333;
+  color: #fff;
 }
