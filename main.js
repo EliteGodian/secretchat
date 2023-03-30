@@ -297,7 +297,7 @@ function addMessageToListDOM(text, member) {
 window.setInterval(function() {
   var elem = DOM.messages;
   elem.scrollTop = elem.scrollHeight;
-}, 1000);
+}, 500);
 loadSettings();
 
 // When the user clicks the button, open the modal
