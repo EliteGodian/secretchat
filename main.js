@@ -300,7 +300,10 @@ function addMessageToListDOM(text, member) {
     el.scrollTop = el.scrollHeight - el.clientHeight;
   }
 }
-
+window.setInterval(function() {
+  var elem = DOM.messages;
+  elem.scrollTop = elem.scrollHeight;
+}, 1000);
 loadSettings();
 
 // When the user clicks the button, open the modal
