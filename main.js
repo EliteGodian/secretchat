@@ -236,17 +236,11 @@ function checkOnline() {
 
   if (document.visibilityState === "hidden") {
     // Set the user's status to "away" when they switch to another tab or window
-    drone.publish({
-      room: "observable-room",
-      message: 'Switched Tabs.'
-    });
+    
     return true;
   } else {
     // Set the user's status to "online" when they switch back to this tab or window
-    drone.publish({
-      room: "observable-room",
-      message: 'Went back to the Chat.'
-    });
+    
     return false;
   }
 }
