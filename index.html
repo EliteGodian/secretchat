@@ -12,7 +12,6 @@
   <script>
     let win;
 
-    function openWindow() {
       /* if (!win || win.closed) {
         win = window.open();
         win.document.body.style.margin = '0';
@@ -28,10 +27,8 @@
         win.focus();
       }
       */
-      setTimeout(function() {document.getElementById("wholechat").style.visibility = "hidden";}, (5 * 1000));
-    }
-
-    openWindow();
+    
+    setTimeout(function() {document.getElementById("wholechat").style.visibility = "hidden";}, (2.5 * 1000));
     window.dataLayer = window.dataLayer || [];
     function gtag() {
       dataLayer.push(arguments);
@@ -41,7 +38,7 @@
     document.onkeydown = function (e) {
     var key = e.key;
     if (key === "0") {
-      window.alert(event.key);
+      window.alert("daddy chill");
       document.getElementById("wholechat").style.visibility = "visible";
     }
     };
