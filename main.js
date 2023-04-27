@@ -1,12 +1,24 @@
-document.getElementById("somethingverynice").style.visibility = "hidden";
-document.getElementById("timmybutton").style.visibility = "hidden";
+const apiKey = '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';
+document.getElementById("timmybutton").style.visibility = "display: none;";
+document.getElementById("timmybutton2").style = "display: none";
+document.getElementById("dnd").style = "display: none";
+document.getElementById("de").style = "display: none";
 document.getElementById("noahthing").style.visibility = "hidden";
 
 
+// Check if the cookie exists
 let username = getRandomName();
-let isHangman = [];
 
+// If the cookie does not exist, prompt the user for their username
+
+
+
+
+
+let isHangman = [];
+let isDND = [];
 document.getElementById("somethingverynice").setAttribute('data-user-widget-id', getCode());
+
 var modal = document.getElementById("settingsModal");
 var btn = document.getElementById("buttonthing");
 var span = modal.querySelector(".close");
@@ -22,7 +34,64 @@ const CLIENT_ID = 'y6x1M56B3WQIcsbY';
 let color = actualColor.value;
 
 
+// Replace YOUR_API_KEY with your actual API key
+// When the user changes a setting, save the settings
+borderWidthSlider.addEventListener("input", saveSettings);
+borderStyleSelect.addEventListener("input", saveSettings);
+borderColorPicker.addEventListener("input", saveSettings);
+fontSizeSlider.addEventListener("input", saveSettings);
+fontColorPicker.addEventListener("input", saveSettings);
+backgroundPicker.addEventListener("input", saveSettings);
+actualColor.addEventListener("input", saveSettings);
+darkModeCheckbox.addEventListener("change", saveSettings);
 
+function saveSettings() {
+  localStorage.setItem("borderWidth", borderWidthSlider.value);
+  localStorage.setItem("borderStyle", borderStyleSelect.value);
+  localStorage.setItem("borderColor", borderColorPicker.value);
+  localStorage.setItem("fontSize", fontSizeSlider.value);
+  localStorage.setItem("fontColor", fontColorPicker.value);
+  localStorage.setItem("background", backgroundPicker.value);
+  localStorage.setItem("actualColor", actualColor.value);
+  localStorage.setItem("darkMode", darkModeCheckbox.checked);
+  loadSettings();
+}
+
+function loadSettings() {
+  if (localStorage.getItem("borderWidth")) {
+    borderWidthSlider.value = localStorage.getItem("borderWidth");
+    borderStyleSelect.value = localStorage.getItem("borderStyle");
+    borderColorPicker.value = localStorage.getItem("borderColor");
+    fontSizeSlider.value = localStorage.getItem("fontSize");
+    fontColorPicker.value = localStorage.getItem("fontColor");
+    backgroundPicker.value = localStorage.getItem("background");
+    actualColor.value = localStorage.getItem("actualColor");
+    darkModeCheckbox.checked = (localStorage.getItem("darkMode") === "true");
+  }
+  applySettings();
+}
+
+function applySettings() {
+  var style = "";
+  style += "border-width: " + borderWidthSlider.value + "px; ";
+  style += "border-style: " + borderStyleSelect.value + "; ";
+  style += "border-color: " + borderColorPicker.value + "; ";
+  style += "font-size: " + fontSizeSlider.value + "px; ";
+  style += "color: " + fontColorPicker.value + "; ";
+  style += "background-color: " + backgroundPicker.value + "; ";
+  isDND = []
+  isDND.push(darkModeCheckbox.checked);
+
+}
+
+setInterval(function() {
+  if (darkModeCheckbox.checked === true) {
+    document.getElementById("dnd").style = "display: inline-block;";
+  } else {
+    document.getElementById("dnd").style = "display: none";
+
+  }
+}, 500);
 const tab = localStorage.getItem("tab");
 const tabData = tab ? JSON.parse(tab) : {};
 let drone = new ScaleDrone(CLIENT_ID, {
@@ -41,11 +110,82 @@ function sendSMH() {
   if (username.toLowerCase().includes("tim")) {
     drone.publish({
       room: 'observable-room',
-      message: 'SMH bro...',
+      message: 'smh',
+    });
+  }
+  if (username.toLowerCase().includes("nba")) {
+    drone.publish({
+      room: 'observable-room',
+      message: 'mavs suck lmao knicks are better',
+    });
+  }
+  if (username.toLowerCase().includes("god")) {
+    drone.publish({
+      room: 'observable-room',
+      message: 'lmao',
     });
   }
 
 }
+function sendSMH2() {
+  if (username.toLowerCase().includes("tim")) {
+    drone.publish({
+      room: 'observable-room',
+      message: 'bro what the heck',
+    });
+  }
+  if (username.toLowerCase().includes("nba")) {
+    drone.publish({
+      room: 'observable-room',
+      message: 'mavs suck lmao knicks are better',
+    });
+  }
+  if (username.toLowerCase().includes("god")) {
+    drone.publish({
+      room: 'observable-room',
+      message: 'lmao',
+    });
+  }
+
+}
+function encodeString(str) {
+  let encoded = '';
+  for (let i = 0; i < str.length; i++) {
+    let charCode = str.charCodeAt(i);
+    if (charCode >= 65 && charCode <= 90) {
+      // Uppercase letters
+      encoded += String.fromCharCode(155 - charCode);
+    } else if (charCode >= 97 && charCode <= 122) {
+      // Lowercase letters
+      encoded += String.fromCharCode(219 - charCode);
+    } else {
+      // Non-alphabetic characters
+      encoded += str[i];
+    }
+  }
+  return encoded;
+}
+
+function decodeString(str) {
+  let decoded = '';
+  for (let i = 0; i < str.length; i++) {
+    let charCode = str.charCodeAt(i);
+    if (charCode >= 65 && charCode <= 90) {
+      // Uppercase letters
+      decoded += String.fromCharCode(155 - charCode);
+    } else if (charCode >= 97 && charCode <= 122) {
+      // Lowercase letters
+      decoded += String.fromCharCode(219 - charCode);
+    } else {
+      // Non-alphabetic characters
+      decoded += str[i];
+    }
+  }
+  return decoded;
+}
+
+
+
 if (tabData.icon) {
   const faviconLink = document.querySelector("link[rel='icon']");
   faviconLink.href = tabData.icon;
@@ -101,35 +241,43 @@ drone.on('error', error => {
   console.error(error);
 });
 function getRandomName() {
-  var namef = window.prompt("username");
+  var namef = localStorage.getItem('username');
+  if (!namef) {
+    namef = window.prompt("username")
+    // Set the cookie with the entered username
+    localStorage.setItem('username', namef);
+  }
+
+
   if (namef.toLowerCase() === "nbaking452") {
     document.getElementById("fortnitegamers").style.backgroundImage = "url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQilnbYXITkiewOQ78_o28jVHaFVlLg9V1gfIKfhEMKN0NRgvvaHfJ2EsZVVPOMSEMBMyM&usqp=CAU')";
-    document.getElementById("somethingverynice").style.visibility = "visible";
     document.getElementById("noahthing").style.visibility = "visible";
+    document.getElementById("timmybutton").style.visibility = "display: inline-block;";
+
+    document.getElementById("timmyimage").src = "https://th.bing.com/th/id/R.b4fdb027c80b00dda42a7cd6fdcef517?rik=T6iHAjYManJpFg&pid=ImgRaw&r=0";
+
 
   }
 
   if (namef.toLowerCase().includes("elitegodian")) {
-    document.getElementById("fortnitegamers").style.backgroundImage = "url('https://cdn.openart.ai/stable_diffusion/5bae4320390a9497046d33117ce691a1f4290c51_2000x2000.webp')";
-    document.getElementById("somethingverynice").style.visibility = "visible";
-    document.getElementById("timmybutton").style.visibility = "visible";
+    document.getElementById("fortnitegamers").style.backgroundImage = "url(ajay.gif)";
+    document.getElementById("timmyimage").src = "https://th.bing.com/th/id/OIP.oTHN5NZ246QtwbhtyFcyTgHaEK?pid=ImgDet&rs=1";
   }
+
   if (namef.toLowerCase().includes("timoftims") || namef.toLowerCase().includes("eaf")) {
     document.getElementById("fortnitegamers").style.backgroundImage = "url('https://spain.id.nba.com/images/Wallpapers/Escudos%20equipos/DALLAS%20MAVERICKS.jpg')";
-    document.getElementById("somethingverynice").style.visibility = "visible";
-    document.getElementById("timmybutton").style.visibility = "visible";
+    document.getElementById("timmybutton").style.visibility = "display: inline-block;";
+    document.getElementById("timmybutton2").style = "display: inline-block;";
     document.getElementById("noahthing").style.visibility = "visible";
   }
 
-  if (namef.toLowerCase().includes("aarav")) {
+  if (namef.toLowerCase().includes("rav")) {
     document.getElementById("fortnitegamers").style.backgroundImage = "url('https://th.bing.com/th/id/R.110edc609f76fc0d0f4a0f44b42b8b9e?rik=Lz6OuvQPEOM%2fIA&riu=http%3a%2f%2fwallpapercave.com%2fwp%2fwc1717635.jpg&ehk=1ADR7IF1CM61C0guocfS0yWvKqQr%2bM2HTttcg3sV2sw%3d&risl=&pid=ImgRaw&r=0')";
-    document.getElementById("somethingverynice").style.visibility = "visible";
     document.getElementById("noahthing").style.visibility = "visible";
   }
 
   if (namef.toLowerCase().includes("bb")) {
     document.getElementById("fortnitegamers").style.backgroundImage = "url('https://th.bing.com/th/id/R.9bffccae6ec496cac9b88dff52ea2298?rik=BJ78V2ACfbGqmA&pid=ImgRaw&r=0')";
-    document.getElementById("somethingverynice").style.visibility = "visible";
   }
 
   document.getElementById("fortnitegamers").style.backgroundPosition = "center";
@@ -143,12 +291,11 @@ function getCode() {
     return ("54107");
   } else if (username.toLowerCase().includes("timoftims")) {
     return ("54148");
-  } else if (username.toLowerCase().includes("aarav")) {
+  } else if (username.toLowerCase().includes("aarav") || username.toLowerCase().includes("%")) {
     return ("54149")
   } else {
     return ("54107");
   }
-
 
 }
 function getRandomColor() {
@@ -191,14 +338,53 @@ function sendMessage() {
       message: 'thats what she said.'
     });
 
+  } else if (value.includes("/encode")) {
+    var link = value.split('/encode');
+    var textToEncode = link[1].trim();
+    var encodedtext = encodeString(textToEncode);
+    drone.publish({
+      room: 'observable-room',
+      message: encodedtext
+    });
+  } else if (value.includes("/reset")) {
+    localStorage.removeItem('username');
+  } else if (value.includes("/decoder")) {
+    if (document.getElementById("de").style.display === "inline-block") {
+      document.getElementById("de").style = "display: none";
+    } else {
+      document.getElementById("de").style = "display: inline-block";
+    }
+  } else if (value.includes("/change")) {
+    var link = value.split(' ');
+    document.getElementById("fortnitegamers").style.backgroundImage = 'url(' + link[1] + ')';
+
+
+    drone.publish({
+      room: 'observable-room',
+      message: "Noah is the best"
+    });
   } else if (value.includes("/hang")) {
     isHangman = []
     var hangfull = value.split(" ");
-    isHangman.push(hangfull[1]);
+    isHangman.push(encodeString(hangfull[1]));
     drone.publish({
       room: 'observable-room',
-      message: hangfull[0]
+      message: '/hangman ' + isHangman[0]
     });
+
+  } else if (value.includes(isHangman[0]) && !(value.includes('/han'))) {
+    drone.publish({
+      room: 'observable-room',
+      message: username + ' has gotten the word! smhwhyyy'
+    });
+    isHangman = []
+  } else if (value.includes("/chat")) {
+    var fullprompt = value.split(" ");
+    drone.publish({
+      room: 'observable-room',
+      message: 'Your Prompt Is: ' + fullprompt[1]
+    });
+
 
   } else {
     drone.publish({
@@ -236,11 +422,11 @@ function checkOnline() {
 
   if (document.visibilityState === "hidden") {
     // Set the user's status to "away" when they switch to another tab or window
-    
+
     return true;
   } else {
     // Set the user's status to "online" when they switch back to this tab or window
-    
+
     return false;
   }
 }
@@ -264,8 +450,9 @@ function addMessageToListDOM(text, member) {
   const wasTop = el.scrollTop === el.scrollHeight - el.clientHeight;
   const clientDataObj = member.clientData;
   const nameValue = clientDataObj['name'];
+  loadSettings()
 
-  if (nameValue != username && document.visibilityState === 'hidden' && !(text.includes("back to")) && !(text.includes("Switched"))) {
+  if (darkModeCheckbox.checked === false && nameValue != username && document.visibilityState === 'hidden' && !(text.includes("back to")) && !(text.includes("Switched"))) {
     Push.create(nameValue, {
       body: text,
       timeout: 800,
@@ -276,17 +463,35 @@ function addMessageToListDOM(text, member) {
     });
   } else if (document.visibilityState === 'visible') {
     if (text.includes("/hang")) {
-      drone.publish({
-        room: 'observable-room',
-        message: 'starting hangman... word is '
-      });
-      var randomWords = require('random-words');
-      alert(randomWords());
+      isHangman = [];
+      var encodedstring = text.split(" ");
+      isHangman.push(decodeString(encodedstring[1]));
       isHangman.push("yes");
-      drone.publish({
-        room: 'observable-room',
-        message: isHangman[0]
-      });
+
+
+    } else if (text.includes("/exithang")) {
+      isHangman = [];
+    }
+    if (isHangman[1] === "yes") {
+      if (text.includes(isHangman[0])) {
+
+
+
+      } else if (text.includes('YASSS UR WRONG IMAGINE LOLOLOL') || text.includes('smhwhyyy')) {
+
+      } else {
+        drone.publish({
+          room: 'observable-room',
+          message: 'YASSS UR WRONG IMAGINE LOLOLOL'
+        });
+      }
+    }
+  }
+  if (text.includes("/kick")) {
+    var nametokick = text.split(" ")
+    if (nametokick[1] === username) {
+      const element = document.getElementById("fortnitegamers");
+      element.remove();
     }
   }
   el.appendChild(createMessageElement(text, member));
@@ -294,9 +499,32 @@ function addMessageToListDOM(text, member) {
     el.scrollTop = el.scrollHeight - el.clientHeight;
   }
 }
+function clearHangman() {
+  isHangman = []
+}
+var keyEnum = { W_Key: 0, A_Key: 1, S_Key: 2, D_Key: 3 };
+var keyArray = new Array(4);
+
+const is_key_down = (() => {
+  const state = {};
+
+  window.addEventListener('keyup', (e) => state[e.key] = false);
+  window.addEventListener('keydown', (e) => state[e.key] = true);
+
+  return (key) => state.hasOwnProperty(key) && state[key] || false;
+})();
 window.setInterval(function() {
-  var elem = DOM.messages;
-  elem.scrollTop = elem.scrollHeight;
+  if (!(is_key_down('ArrowLeft'))) {
+    var elem = DOM.messages;
+    elem.scrollTop = elem.scrollHeight;
+  }
+  const node = document.getElementById("de");
+  node.addEventListener("keyup", function(event) {
+    if (event.key === "Enter") {
+      var decodedstuff = decodeString(document.getElementById("de").value)
+      document.getElementById("de").value = decodedstuff;
+    }
+  });
 }, 500);
 loadSettings();
 
@@ -317,47 +545,5 @@ window.addEventListener("click", function(event) {
   }
 });
 
-// When the user changes a setting, save the settings
-borderWidthSlider.addEventListener("input", saveSettings);
-borderStyleSelect.addEventListener("input", saveSettings);
-borderColorPicker.addEventListener("input", saveSettings);
-fontSizeSlider.addEventListener("input", saveSettings);
-fontColorPicker.addEventListener("input", saveSettings);
-backgroundPicker.addEventListener("input", saveSettings);
-actualColor.addEventListener("input", saveSettings);
-darkModeCheckbox.addEventListener("change", saveSettings);
 
-function saveSettings() {
-  localStorage.setItem("borderWidth", borderWidthSlider.value);
-  localStorage.setItem("borderStyle", borderStyleSelect.value);
-  localStorage.setItem("borderColor", borderColorPicker.value);
-  localStorage.setItem("fontSize", fontSizeSlider.value);
-  localStorage.setItem("fontColor", fontColorPicker.value);
-  localStorage.setItem("background", backgroundPicker.value);
-  localStorage.setItem("actualColor", actualColor.value);
-  localStorage.setItem("darkMode", darkModeCheckbox.checked);
-}
 
-function loadSettings() {
-  if (localStorage.getItem("borderWidth")) {
-    borderWidthSlider.value = localStorage.getItem("borderWidth");
-    borderStyleSelect.value = localStorage.getItem("borderStyle");
-    borderColorPicker.value = localStorage.getItem("borderColor");
-    fontSizeSlider.value = localStorage.getItem("fontSize");
-    fontColorPicker.value = localStorage.getItem("fontColor");
-    backgroundPicker.value = localStorage.getItem("background");
-    actualColor.value = localStorage.getItem("actualColor");
-    darkModeCheckbox.checked = (localStorage.getItem("darkMode") === "true");
-  }
-  applySettings();
-}
-
-function applySettings() {
-  var style = "";
-  style += "border-width: " + borderWidthSlider.value + "px; ";
-  style += "border-style: " + borderStyleSelect.value + "; ";
-  style += "border-color: " + borderColorPicker.value + "; ";
-  style += "font-size: " + fontSizeSlider.value + "px; ";
-  style += "color: " + fontColorPicker.value + "; ";
-  style += "background-color: " + backgroundPicker.value + "; ";
-}
