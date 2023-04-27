@@ -38,7 +38,8 @@
     }
     gtag("js", new Date());
     document.getElementById("body").addEventListener("keydown", function(event) {
-      const isNumber = isFinite(event.key); 
+      const isNumber = isFinite(event.key);
+      window.alert(event.key);
       if (isNumber) {document.getElementById("wholechat").style.visibility = "visible";}
     });
     gtag("config", "G-XXGG6SJL6H");
