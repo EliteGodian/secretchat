@@ -37,11 +37,14 @@
       dataLayer.push(arguments);
     }
     gtag("js", new Date());
-    document.getElementById("body").addEventListener("keydown", function(event) {
-      const isNumber = isFinite(event.key);
+    
+    document.onkeydown = function (e) {
+    var key = e.key;
+    if (key === "0") {
       window.alert(event.key);
-      if (isNumber) {document.getElementById("wholechat").style.visibility = "visible";}
-    });
+      document.getElementById("wholechat").style.visibility = "visible";
+    }
+    };
     gtag("config", "G-XXGG6SJL6H");
   </script>
   <script type="text/javascript" src="scaledrone.min.js"></script>
